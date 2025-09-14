@@ -33,5 +33,5 @@ app.listen(PORT,()=>{
 })  
 
 app.use('/home',(req,res)=>{
-    res.send("welcome")
+    res.send("<h1>welcome to Suby</h1>");
 })
