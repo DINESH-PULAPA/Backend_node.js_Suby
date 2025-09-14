@@ -32,6 +32,6 @@ app.listen(PORT,()=>{
     console.log(`server is running on port localhost ${PORT}`);
 })  
 
-app.use('/home',(req,res)=>{
+app.use('/',(req,res)=>{
     res.send("<h1>welcome to Suby</h1>");
 })
