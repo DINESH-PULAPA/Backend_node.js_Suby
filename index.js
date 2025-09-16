@@ -6,11 +6,15 @@ const vendorRoutes = require('./routes/vendorRoutes')
 const firmRoutes = require('./routes/firmRoutes')
 const productRoutes = require('./routes/productRoutes');
 const path = require('path');
+const cors = require('cors');
 
 const app = express()
-dotenv.config();
+
 
 const PORT = process.env.PORT || 5000
+
+app.use(cors());
+dotenv.config();
 
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>
@@ -32,6 +36,6 @@ app.listen(PORT,()=>{
     console.log(`server is running on port localhost ${PORT}`);
 })  
 
-app.use('/',(req,res)=>{
-    res.send("<h1>welcome to Suby</h1>");
-})
+app.use('/', (req, res) => {
+    res.json({ message: "Welcome to Suby" });
+});
