@@ -1,4 +1,3 @@
-
 const Product = require('../models/Product');
 const multer = require('multer');
 const Firm = require('../models/Firm');
@@ -64,19 +63,20 @@ const getProductByFirm = async(req,res)=>{
     }
 }
 
-const deleteProductById = async(req,res)=>{
-    try {
-        const productId = req.params.productId;
-        const deletedProduct = await Product.findByIdAndDelete(productId);
+const deleteProductById = async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const deletedProduct = await Product.findByIdAndDelete(productId);
 
-        if(!deletedProduct){
-            return res.status(404).json({error:"Product not found"});
-        }
-        
-    } catch (error) {
-        console.error("Error deleting product:", error);
-        res.status(500).json({ error: "Internal server error" });
+    if (!deletedProduct) {
+      return res.status(404).json({ error: "Product not found" });
     }
-}
+
+    res.json({ message: "Product deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
 
 module.exports = {addProduct:[upload.single('image'), addProduct], getProductByFirm, deleteProductById};

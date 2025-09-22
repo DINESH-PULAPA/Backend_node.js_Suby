@@ -37,6 +37,10 @@ const addFirm = async (req, res) => {
       return res.status(404).json({ error: "Vendor not found" });
     }
 
+    if (vendor.firm.length > 0) {
+      return res.status(400).json({ message: "Vendor can add only one firm" });
+    }
+
     const firm = new Firm({
       firmname,
       area,
@@ -48,9 +52,16 @@ const addFirm = async (req, res) => {
     });
 
     const savedFirm = await firm.save();
+
+    const firmId = savedFirm._id;
+
     vendor.firm.push(savedFirm._id);
+
     await vendor.save();
-    return res.status(201).json({ message: "Firm added successfully", firm: savedFirm });
+
+    
+
+    return res.status(201).json({ message: "Firm added successfully", firm: savedFirm  , firmId });
 
   } catch (error) {
     console.error("Error adding firm:", error);
@@ -74,4 +85,4 @@ const deleteFirmById = async (req, res) => {
 }
 
 // Export with multer middleware
-module.exports = { addFirm: [upload.single('file'), addFirm], deleteFirmById };
+module.exports = { addFirm: [upload.single('image'), addFirm], deleteFirmById };
