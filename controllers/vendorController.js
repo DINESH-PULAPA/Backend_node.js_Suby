@@ -1,4 +1,3 @@
-
 const Vendor = require('../models/Vendor');
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
@@ -73,7 +72,7 @@ const getVendorById = async(req,res)=>{
             return res.status(404).json({error:"Vendor not found"});
         }
 
-        const vendorFirmId = vendor.firm[0]._id;
+        const vendorFirmId = vendor.firm && vendor.firm.length > 0 ? vendor.firm[0]._id : null;
 
         res.status(200).json({vendor,vendorId, vendorFirmId});
         console.log(vendor,vendorId, vendorFirmId);
